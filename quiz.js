@@ -14,9 +14,6 @@ export function askQuestion() {
 }
 
 export function answerQuestion(user_question, answer) {
-    console.log(answer)
-    console.log(questions[user_question.id].correctAnswer)
-    console.log(questions[user_question.id])
 	if (answer === questions[user_question.id].correctAnswer) {
 		return true;
 	} else {
@@ -32,8 +29,5 @@ export function answerQuestion(user_question, answer) {
         } 
     })
 }
-<<<<<<< HEAD
  * 
  */
-=======
->>>>>>> 69d92ed11ce7fd2e4ac15fcc4bd41291bdb95f3d
