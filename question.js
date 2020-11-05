@@ -9,7 +9,7 @@ const question1 = {
 
 const question2 = {
     question: 'Whats 2 + 2?',
-    correctAnswer: 'c',
+    correctAnswer: 'a',
     a: '5',
     b: '7',
     c: '4',
