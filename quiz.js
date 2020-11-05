@@ -12,15 +12,11 @@ export function askQuestion(){
         a: question.a,
         b: question.b,
         c: question.c,
-        d: question.d
+        d: question.d,
+        id: question.id
     }
 }
 
 export function answerQuestion(user_question, answer){
-    console.log(`${user_question.question} ${answer}`)
-    for(const question of questions) {
-        if (question.question === user_question.question){
-            return answer === question.correctAnswer;
-        }
-    }
+    return answer === questions[user_question.id].correctAnswer;
 }
