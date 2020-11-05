@@ -28,14 +28,12 @@ export function answerQuestion(user_question, answer) {
  export function answerQuestion(user_question, answer){
     questions.forEach(question => {
         if (question.question === user_question){
-            if(answer === question.correctAnswer){
-                return true
-            }
-            else {
-                return false
-            }
+            return answer === question.correctAnswer;
         } 
     })
 }
+<<<<<<< HEAD
  * 
  */
+=======
+>>>>>>> 69d92ed11ce7fd2e4ac15fcc4bd41291bdb95f3d
