@@ -14,12 +14,7 @@ export function askQuestion(){
 export function answerQuestion(user_question, answer){
     questions.forEach(question => {
         if (question.question === user_question){
-            if(answer === question.correctAnswer){
-                return true
-            }
-            else {
-                return false
-            }
+            return answer === question.correctAnswer;
         } 
     })
 }
