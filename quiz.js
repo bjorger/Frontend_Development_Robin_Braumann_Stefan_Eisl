@@ -1,12 +1,8 @@
-import {questions} from './question.js'
+import {getQuestions} from './question.js'
 
-// https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/Math/math.random
-function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
 
-export function askQuestion(){
-    const question = questions[getRandomInt(questions.length)]
+export async function askQuestion(){
+    const question = await getQuestions();
     return {
         question: question.question,
         a: question.a,
@@ -17,6 +13,7 @@ export function askQuestion(){
     }
 }
 
-export function answerQuestion(user_question, answer){
-    return answer === questions[user_question.id].correctAnswer;
+export async function answerQuestion(user_question, answer) {
+    const q = await getQuestions({id: user_question.id});
+    return q.correctAnswer === answer;
 }
