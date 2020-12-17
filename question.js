@@ -51,12 +51,14 @@ function getRandomInt(max) {
  * @param {Object} options
  * @return {Promise}
  * */
-export async function getQuestions(options = {id: 'random'}) {
-  let id;
-  if (options.id === 'random') {
-    id = getRandomInt(questions.length);
-  } else {
-    id = parseInt(options.id);
-  }
-  return await Promise.resolve(delay()).then(() => questions[id]);
+export async function getQuestions(options = {id: "random"}) {
+    let id;
+    if (options.id === "random") {
+        id = getRandomInt(questions.length);
+    } else {
+        id = parseInt(options.id);
+    }
+    await delay();
+
+    return questions[id];
 }
