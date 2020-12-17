@@ -1,3 +1,7 @@
+/**
+ * @param {Number} ms
+ * @return {Promise}
+ * */
 export function delay(ms = 200) {
-    return new Promise(resolve => setTimeout(resolve, ms))
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
