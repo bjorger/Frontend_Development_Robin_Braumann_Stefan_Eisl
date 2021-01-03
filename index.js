@@ -5,22 +5,28 @@ const state = {
   answer: '',
 };
 
-window.handleChange = (evt) => {
-  state.answer = evt.target.value;
+window.handleChange = (event) => {
+  state.answer = event.target.value;
 };
 
-window.onSubmit = (evt) => {
+window.handleClick = (event) => {
+  event.preventDefault();
+  history.pushState(null, 'Quiz', event.target.href);
+  onRouteChange();
+}
+
+window.handleSubmit = (evt) => {
   evt.preventDefault();
   history.pushState(null, 'result', '/result');
   onRouteChange();
 };
 
-const landing = () => {
-  return `<a href="/quiz">Quiz</a>`;
-};
+const link = (url, urlText) => {
+  return (`<a onclick="handleClick(event)" href="${url}">${urlText}</a>`)
+}
 
 const quiz = (question) => {
-  return (`<form class="question" onsubmit="onSubmit(event)">
+  return (`<form class="question" onsubmit="handleSubmit(event)">
         <label>${question.question}</label>
         <div class="answers">
           ${Object.keys(question.answers).map((key) => {
@@ -39,7 +45,7 @@ const quiz = (question) => {
 const result = (result) => {
   const resultDiv = result ? `<div>Your answer is correct!</div>` : `<div>Your answer is wrong!</div>`;
 
-  return resultDiv + `<a href="/quiz">Back to the Quiz</a>`;
+  return resultDiv + link('/quiz', 'Back to the Quiz');
 };
 
 const onRouteChange = async () => {
@@ -61,17 +67,8 @@ const onRouteChange = async () => {
       console.error(e);
     }
   } else {
-    domElement.innerHTML = landing();
+    domElement.innerHTML = link('/quiz', 'Quiz');
   }
-
-  // Override the default behaviour of all anchors
-  Array.from(document.querySelectorAll('a')).forEach((link) => {
-    link.addEventListener('click', (evt) => {
-      evt.preventDefault();
-      history.pushState(null, 'Quiz', evt.target.href);
-      onRouteChange();
-    });
-  });
 };
 
 onRouteChange();
