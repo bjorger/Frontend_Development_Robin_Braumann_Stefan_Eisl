@@ -8,12 +8,12 @@ export async function askQuestion() {
   return {
     question: question.question,
     id: question.id,
-    answers:{
+    answers: {
       a: question.a,
       b: question.b,
       c: question.c,
       d: question.d,
-    }
+    },
   };
 }
 

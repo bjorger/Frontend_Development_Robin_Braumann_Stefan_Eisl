@@ -24,11 +24,11 @@ const quiz = (question) => {
         <label>${question.question}</label>
         <div class="answers">
           ${Object.keys(question.answers).map((key) => {
-            return(`<div class="answerContainer">
-              <input type="radio" id=${"answer" + key} value="${key}" name="answer" onclick="handleChange(event)"/>
-              <label for=${"answer" + key}>${question.answers[key]}</label>
-            </div>`)
-          }).toString().replaceAll(',', '')}
+              return (`<div class="answerContainer">
+                      <input type="radio" id=${'answer' + key} value="${key}" name="answer" onclick="handleChange(event)"/>
+                      <label for=${'answer' + key}>${question.answers[key]}</label>
+                    </div>`);
+            }).toString().replaceAll(',', '')}
         </div>
         <div>
           <input type="submit" value="Lösung einchecken"/>
@@ -63,14 +63,15 @@ const onRouteChange = async () => {
   } else {
     domElement.innerHTML = landing();
   }
-};
 
-Array.from(document.querySelectorAll('a')).forEach((link) => {
-  link.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    history.pushState(null, 'Quiz', evt.target.href);
-    onRouteChange();
+  // Override the default behaviour of all anchors
+  Array.from(document.querySelectorAll('a')).forEach((link) => {
+    link.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      history.pushState(null, 'Quiz', evt.target.href);
+      onRouteChange();
+    });
   });
-});
+};
 
 onRouteChange();
