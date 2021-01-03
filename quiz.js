@@ -7,11 +7,13 @@ export async function askQuestion() {
   const question = await getQuestions();
   return {
     question: question.question,
-    a: question.a,
-    b: question.b,
-    c: question.c,
-    d: question.d,
     id: question.id,
+    answers:{
+      a: question.a,
+      b: question.b,
+      c: question.c,
+      d: question.d,
+    }
   };
 }
 

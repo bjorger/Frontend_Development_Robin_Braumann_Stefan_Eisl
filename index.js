@@ -20,32 +20,20 @@ const landing = () => {
 };
 
 const quiz = (question) => {
-  return (
-    `<form class="question" onsubmit="onSubmit(event)">
+  return (`<form class="question" onsubmit="onSubmit(event)">
         <label>${question.question}</label>
-        <div class="answers">        
-          <div class="answerContainer">
-            <input type="radio" id="answer1" value="a" name="answer" onclick="handleChange(event)"/>
-            <label for="answer1">${question.a}</label>
-          </div>
-          <div class="answerContainer">
-            <input type="radio" id="answer2" value="b" name="answer" onclick="handleChange(event)"/>
-            <label for="answer2">${question.b}</label>
-          </div>
-          <div class="answerContainer">
-            <input type="radio" id="answer3" value="c" name="answer" onclick="handleChange(event)"/>
-            <label for="answer3">${question.c}</label>
-          </div>
-          <div class="answerContainer">
-            <input type="radio" id="answer4" value="d" name="answer" onclick="handleChange(event)"/>
-            <label for="answer4">${question.d}</label>
-          </div>
+        <div class="answers">
+          ${Object.keys(question.answers).map((key) => {
+            return(`<div class="answerContainer">
+              <input type="radio" id=${"answer" + key} value="${key}" name="answer" onclick="handleChange(event)"/>
+              <label for=${"answer" + key}>${question.answers[key]}</label>
+            </div>`)
+          }).toString().replaceAll(',', '')}
         </div>
         <div>
           <input type="submit" value="Lösung einchecken"/>
         </div>
-    </form>`
-  );
+    </form>`);
 };
 
 const result = (result) => {
