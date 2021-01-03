@@ -1,4 +1,4 @@
-import { askQuestion, answerQuestion } from './quiz.js';
+import {askQuestion, answerQuestion} from './quiz.js';
 
 let state = '';
 let currentQuestion = undefined;
@@ -50,8 +50,8 @@ const quiz = (question) => {
 };
 
 const result = (result) => {
-  const resultDiv = result ? `<div>Your answer is correct!</div>` : `<div>Your answer is wrong!</div>`
-  
+  const resultDiv = result ? `<div>Your answer is correct!</div>` : `<div>Your answer is wrong!</div>`;
+
   return resultDiv + `<a href="/quiz">Back to the Quiz</a>`;
 };
 
@@ -63,8 +63,8 @@ const onRouteChange = async () => {
     currentQuestion = await askQuestion();
     domElement.innerHTML = quiz(currentQuestion);
   } else if (pathname === '/result' && currentQuestion !== undefined && state.length > 0) {
-      const res = await answerQuestion(currentQuestion, state);
-      domElement.innerHTML = result(res);
+    const res = await answerQuestion(currentQuestion, state);
+    domElement.innerHTML = result(res);
   } else {
     domElement.innerHTML = landing();
   }
