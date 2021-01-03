@@ -1,19 +1,18 @@
 import {askQuestion, answerQuestion} from './quiz.js';
 
-let state = '';
-let currentQuestion = undefined;
+let state = {
+  currentQuestion: undefined,
+  answer: ''
+};
 
 window.handleChange = (evt) => {
-  state = evt.target.value;
+  state.answer = evt.target.value;
 };
 
 window.onSubmit = (evt) => {
   evt.preventDefault();
-  if (state.length > 0) {
-    console.log(currentQuestion);
-    history.pushState(null, 'result', '/result');
-    onRouteChange();
-  }
+  history.pushState(null, 'result', '/result');
+  onRouteChange();
 };
 
 const landing = () => {
@@ -60,11 +59,21 @@ const onRouteChange = async () => {
   const domElement = document.querySelector('#content');
 
   if (pathname === '/quiz') {
-    currentQuestion = await askQuestion();
-    domElement.innerHTML = quiz(currentQuestion);
-  } else if (pathname === '/result' && currentQuestion !== undefined && state.length > 0) {
-    const res = await answerQuestion(currentQuestion, state);
-    domElement.innerHTML = result(res);
+    try{
+      state.currentQuestion = await askQuestion();
+      domElement.innerHTML = quiz(state.currentQuestion);
+    }
+    catch(e){
+      console.error(e)
+    }
+  } else if (pathname === '/result' && state.currentQuestion !== undefined && state.answer.length > 0) {
+    try{
+      const res = await answerQuestion(state.currentQuestion, state.answer);
+      domElement.innerHTML = result(res);
+    }
+    catch(e){
+      console.error(e)
+    }
   } else {
     domElement.innerHTML = landing();
   }
