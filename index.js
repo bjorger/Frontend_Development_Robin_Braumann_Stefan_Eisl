@@ -1,11 +1,10 @@
-import {askQuestion, answerQuestion} from './quiz.js';
+import { askQuestion, answerQuestion } from './quiz.js';
 
 let state = '';
-let currentQuestion;
+let currentQuestion = undefined;
 
 window.handleChange = (evt) => {
   state = evt.target.value;
-  console.log(state);
 };
 
 window.onSubmit = (evt) => {
@@ -51,9 +50,9 @@ const quiz = (question) => {
 };
 
 const result = (result) => {
-  return (result ?
-    `<div>Your answer is correct!</div><a href="/quiz">Back to the Quiz</a>` :
-    `<div>Your answer is wrong!</div><a href="/quiz">Back to the Quiz</a>`);
+  const resultDiv = result ? `<div>Your answer is correct!</div>` : `<div>Your answer is wrong!</div>`
+  
+  return resultDiv + `<a href="/quiz">Back to the Quiz</a>`;
 };
 
 const onRouteChange = async () => {
@@ -63,21 +62,20 @@ const onRouteChange = async () => {
   if (pathname === '/quiz') {
     currentQuestion = await askQuestion();
     domElement.innerHTML = quiz(currentQuestion);
-  } else if (pathname === '/result') {
-    const res = await answerQuestion(currentQuestion, state);
-    domElement.innerHTML = result(res);
+  } else if (pathname === '/result' && currentQuestion !== undefined && state.length > 0) {
+      const res = await answerQuestion(currentQuestion, state);
+      domElement.innerHTML = result(res);
   } else {
     domElement.innerHTML = landing();
   }
 };
 
-onRouteChange();
-
 Array.from(document.querySelectorAll('a')).forEach((link) => {
   link.addEventListener('click', (evt) => {
     evt.preventDefault();
-    console.log(evt.target.href);
     history.pushState(null, 'Quiz', evt.target.href);
     onRouteChange();
   });
 });
+
+onRouteChange();
