@@ -1,8 +1,8 @@
 import {askQuestion, answerQuestion} from './quiz.js';
 
-let state = {
+const state = {
   currentQuestion: undefined,
-  answer: ''
+  answer: '',
 };
 
 window.handleChange = (evt) => {
@@ -59,20 +59,18 @@ const onRouteChange = async () => {
   const domElement = document.querySelector('#content');
 
   if (pathname === '/quiz') {
-    try{
+    try {
       state.currentQuestion = await askQuestion();
       domElement.innerHTML = quiz(state.currentQuestion);
-    }
-    catch(e){
-      console.error(e)
+    } catch (e) {
+      console.error(e);
     }
   } else if (pathname === '/result' && state.currentQuestion !== undefined && state.answer.length > 0) {
-    try{
+    try {
       const res = await answerQuestion(state.currentQuestion, state.answer);
       domElement.innerHTML = result(res);
-    }
-    catch(e){
-      console.error(e)
+    } catch (e) {
+      console.error(e);
     }
   } else {
     domElement.innerHTML = landing();
